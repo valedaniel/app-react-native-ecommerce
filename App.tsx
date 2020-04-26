@@ -9,8 +9,10 @@
  */
 
 import React, { ReactNode } from 'react';
-import { Router, Stack, Scene } from 'react-native-router-flux';
+import { Router, Stack, Scene, Drawer, ActionConst } from 'react-native-router-flux';
 import LoginScreen from './src/pages/Login';
+import RegisterScreen from './src/pages/Register';
+import ProductList from './src/pages/ProductList';
 
 class App extends React.Component<any, any> {
 
@@ -19,15 +21,34 @@ class App extends React.Component<any, any> {
       <>
         <Router>
           <Stack key="root">
+            {/* <Drawer
+              key='userProfile'
+              drawerPosition='left'
+              type="push"
+              hideNavBar
+            > */}
             <Scene
               key="login"
               component={LoginScreen}
               title="Login"
               initial={true}
               hideNavBar={true}
+              type="replace"
             />
-            {/* <Scene key="register" component={} title="Register" />
-          <Scene key="list" component={} title="List"/> */}
+            <Scene
+              key="register"
+              component={RegisterScreen}
+              title="Register"
+              hideNavBar={true}
+            />
+            <Scene
+              key="productList"
+              component={ProductList}
+              title="Lista de produtos"
+              hideNavBar={true}
+              type="replace"
+            />
+            {/* </Drawer> */}
           </Stack>
         </Router >
       </>

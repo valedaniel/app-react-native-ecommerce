@@ -1,7 +1,6 @@
 import React, { Component, ReactNode } from 'react';
-// import { Header, Body, Title, Container, Content, List, Button, Text, Card, CardItem } from 'native-base';
-import { StatusBar, TextInput, Button } from 'react-native';
-import { Actions, MyState } from './actions';
+import { Container, Content, Button, Text, Item, Input } from 'native-base';
+import { Contract } from './contract';
 import styles from './styles';
 
 export class LoginHeader extends Component<any, any> {
@@ -15,15 +14,26 @@ export class LoginHeader extends Component<any, any> {
 
 
 
-export class LoginBody extends Component<{ actions: Actions }, any> {
+export class LoginBody extends Component<{ contract: Contract }, any> {
     render(): ReactNode {
-        const { actions } = this.props;
+        const { contract } = this.props;
         return (
-            <>
-                <TextInput onChangeText={(text: string) => actions.onChangeText(MyState.login, text)} />
-                <TextInput onChangeText={(text: string) => actions.onChangeText(MyState.password, text)} />
-                <Button title="CLICK" color="" onPress={() => actions.authenticate()} />
-            </>
+            <Container style={styles.container}>
+                <Content>
+                    <Item style={styles.item} rounded>
+                        <Input placeholder='Login' onChangeText={(text: string) => contract.setLogin(text)} />
+                    </Item>
+                    <Item style={styles.item} rounded>
+                        <Input secureTextEntry={true} placeholder='Senha' onChangeText={(text: string) => contract.setPassword(text)} />
+                    </Item>
+                    <Button block style={{ ...styles.button, backgroundColor: 'green' }} onPress={() => contract.authenticate()}>
+                        <Text style={styles.text}>ENTRAR</Text>
+                    </Button>
+                    <Button block style={styles.button} onPress={() => contract.redirectToRegister()}>
+                        <Text style={styles.text}>REGISTRAR</Text>
+                    </Button>
+                </Content>
+            </Container>
         );
     }
 }
