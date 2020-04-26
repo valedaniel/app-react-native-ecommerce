@@ -1,45 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React, { ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
+import { Actions } from './actions';
 import userService from '../../services/userService';
-import { TextInput, Button } from 'react-native';
+import { LoginBody, LoginHeader } from './view';
 
-type MyState = { login: string, password: string }
+type MyProps = {}
+export type MyState = { login: string, password: string }
 
-class Login extends React.Component<any, MyState> {
+export default class LoginScreen extends Component<MyProps, MyState> implements Actions {
+    constructor(props: any) {
+        super(props);
 
-  constructor(props: any) {
-    super(props);
+        this.state = {
+            login: '',
+            password: '',
+        }
 
-    this.state = {
-      login: '',
-      password: '',
     }
 
-  }
+    onChangeText(field: string, value: string): void {
+        this.setState({ ...this.state, [field]: value });
+    }
 
-  private async authenticate(): Promise<void> {
-    const { login, password } = this.state;
-    console.warn(await userService.authenticate(login, password));
-  }
+    async authenticate(): Promise<void> {
+        const { login, password } = this.state;
+        console.warn(await userService.authenticate(login, password));
+    }
 
-  render(): ReactNode {
-    return (
-      <>
-        <TextInput onChangeText={(text: string) => this.setState({ login: text })} />
-        <TextInput onChangeText={(text: string) => this.setState({ password: text })} />
-        <Button title="CLICK" color="" onPress={() => this.authenticate()} />
-      </>
-    );
-  };
+    render(): ReactNode {
+        return (
+            <>
+                <LoginHeader />
+                <LoginBody actions={this} />
+            </>
+        );
+    }
 }
 
-export default Login;

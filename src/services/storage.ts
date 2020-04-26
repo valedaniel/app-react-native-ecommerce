@@ -2,19 +2,13 @@ import { AsyncStorage } from 'react-native';
 
 class Repository {
 
-    // public async save(pagador: Pagador): Promise<void> {
-    //     AsyncStorage.setItem('pagadores', JSON.stringify(pagador));
+    public async save(key: string, item: string): Promise<void> {
+        AsyncStorage.setItem(key, item);
+    }
 
-    //     // this.getAll().then((list: Pagador[]) => {
-    //     //     list.push(pagador);
-    //     // });
-    // }
-
-    // public async getAll(): Promise<Pagador[]> {
-    //     const jsonText = await AsyncStorage.getItem('pagadores');
-    //     if (!jsonText) return new Array<any>();
-    //     return JSON.parse(jsonText!);
-    // }
+    public async get(key: string): Promise<string | null> {
+        return await AsyncStorage.getItem(key);
+    }
 
 }
 

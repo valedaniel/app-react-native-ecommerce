@@ -10,7 +10,7 @@
 
 import React, { ReactNode } from 'react';
 import { Router, Stack, Scene } from 'react-native-router-flux';
-import Login from './src/pages/Login';
+import LoginScreen from './src/pages/Login';
 
 class App extends React.Component<any, any> {
 
@@ -21,7 +21,7 @@ class App extends React.Component<any, any> {
           <Stack key="root">
             <Scene
               key="login"
-              component={Login}
+              component={LoginScreen}
               title="Login"
               initial={true}
               hideNavBar={true}
