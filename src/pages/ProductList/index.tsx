@@ -7,6 +7,7 @@ import { User } from '../../entities/user';
 import { Actions } from 'react-native-router-flux';
 import { AxiosResponse } from 'axios';
 import productService from '../../services/productService';
+import SplashScreen from 'react-native-splash-screen';
 
 type MyProps = {}
 export type MyState = { user: User, confirmPassword: string }
@@ -29,6 +30,7 @@ export default class ProductList extends Component<MyProps, MyState> implements 
 
     async componentDidMount() {
         const res: AxiosResponse<any> = await productService.list();
+        SplashScreen.hide();
         console.log(res.data);
     }
 

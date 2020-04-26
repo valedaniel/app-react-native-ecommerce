@@ -3,6 +3,7 @@ import { Container, Content, Button, Text, Item, Input } from 'native-base';
 import { Contract } from './contract';
 import styles from './styles';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export class RegisterHeader extends Component<any, any> {
     render(): ReactNode {
@@ -19,32 +20,70 @@ export class RegisterBody extends Component<{ contract: Contract }, any> {
     render(): ReactNode {
         const { contract } = this.props;
         return (
-
             <Container style={styles.container}>
                 <Content>
-                    <Item style={styles.item} rounded>
-                        <Input placeholder='Nome' onChangeText={(text: string) => contract.setName(text)} />
+                    <Item style={styles.item} rounded inlineLabel>
+                        <Icon style={styles.icon} name='address-card' />
+                        <Input
+                            placeholder='Insira o nome'
+                            placeholderTextColor='white'
+                            onChangeText={(text: string) => contract.setName(text)}
+                            style={styles.input}
+                        />
                     </Item>
-                    <Item style={styles.item} rounded>
-                        <Input keyboardType="numeric" placeholder='Idade' onChangeText={(text: string) => contract.setAge(parseInt(text))} />
+                    <Item style={styles.item} rounded inlineLabel>
+                        <Icon style={styles.icon} name='child' />
+                        <Input
+                            keyboardType="numeric"
+                            placeholder='Insira a idade'
+                            placeholderTextColor='white'
+                            onChangeText={(text: string) => contract.setAge(parseInt(text))}
+                            style={styles.input}
+                        />
                     </Item>
-                    <Item style={styles.item} rounded>
-                        <Input placeholder='Email' onChangeText={(text: string) => contract.setEmail(text)} />
+                    <Item style={styles.item} rounded inlineLabel>
+                        <Icon style={styles.icon} name='at' />
+                        <Input
+                            placeholder='Insira o email'
+                            placeholderTextColor='white'
+                            onChangeText={(text: string) => contract.setEmail(text)}
+                            style={styles.input}
+                        />
                     </Item>
-                    <Item style={styles.item} rounded>
-                        <Input placeholder='Endereço' onChangeText={(text: string) => contract.setAddress(text)} />
+                    <Item style={styles.item} rounded inlineLabel>
+                        <Icon style={styles.icon} name='map' />
+                        <Input
+                            placeholder='Insira o seu endereço'
+                            placeholderTextColor='white'
+                            onChangeText={(text: string) => contract.setAddress(text)}
+                            style={styles.input}
+                        />
                     </Item>
-                    <Item style={styles.item} rounded>
-                        <Input secureTextEntry={true} placeholder='Senha' onChangeText={(text: string) => contract.setPassword(text)} />
+                    <Item style={styles.item} rounded inlineLabel>
+                        <Icon style={styles.icon} name='lock' />
+                        <Input
+                            secureTextEntry={true}
+                            placeholder='Insira a senha'
+                            placeholderTextColor='white'
+                            onChangeText={(text: string) => contract.setPassword(text)}
+                            style={styles.input}
+                        />
                     </Item>
-                    <Item style={styles.item} rounded>
-                        <Input secureTextEntry={true} placeholder='Confirme a senha' onChangeText={(text: string) => contract.setConfirmPassword(text)} />
+                    <Item style={styles.item} rounded inlineLabel>
+                        <Icon style={styles.icon} name='lock' />
+                        <Input
+                            secureTextEntry={true}
+                            placeholder='Confirme a senha'
+                            placeholderTextColor='white'
+                            onChangeText={(text: string) => contract.setConfirmPassword(text)}
+                            style={styles.input}
+                        />
                     </Item>
-                    <Button block style={{ ...styles.button, backgroundColor: 'green' }} onPress={() => contract.register()}>
+                    <Button block success style={styles.button} onPress={() => contract.register()}>
                         <Text style={styles.text}>CONCLUIR</Text>
                     </Button>
-                    <Button block style={styles.button} onPress={() => Actions.login()}>
-                        <Text style={styles.text}>VOLTAR</Text>
+                    <Button bordered light block style={styles.button} onPress={() => Actions.login()}>
+                        <Text style={styles.text}>JÁ SOU CADASTRADO</Text>
                     </Button>
                 </Content>
             </Container >
