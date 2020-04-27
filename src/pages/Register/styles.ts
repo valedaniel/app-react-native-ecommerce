@@ -12,8 +12,9 @@ export default StyleSheet.create({
         borderRadius: 20
     },
     container: {
+        paddingTop: '7%',
         paddingHorizontal: '5%',
-        backgroundColor:'#DE051A'
+        backgroundColor: '#0070C0'
     },
     item: {
         marginVertical: '3%'
@@ -25,5 +26,12 @@ export default StyleSheet.create({
     },
     input: {
         color: 'white'
+    },
+    activity: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
     }
 });

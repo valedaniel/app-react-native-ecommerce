@@ -9,7 +9,7 @@ import { AxiosResponse } from 'axios';
 import { Toast, Root } from 'native-base';
 
 type MyProps = {}
-export type MyState = { user: User, confirmPassword: string }
+export type MyState = { user: User, confirmPassword: string, loading: boolean }
 
 export default class RegisterScreen extends Component<MyProps, MyState> implements Contract {
     constructor(props: any) {
@@ -18,6 +18,7 @@ export default class RegisterScreen extends Component<MyProps, MyState> implemen
         this.state = {
             user: new User(),
             confirmPassword: '',
+            loading: false,
         }
 
     }
@@ -47,12 +48,19 @@ export default class RegisterScreen extends Component<MyProps, MyState> implemen
         user.password = value;
     }
 
+    getLoading(): boolean {
+        const { loading } = this.state;
+        return loading;
+    }
+
+
     setConfirmPassword(value: string): void { this.setState({ confirmPassword: value }); }
 
 
     async register(): Promise<void> {
         const { user } = this.state;
         if (this.validateUser(user)) {
+            this.setState({ loading: true });
             const res: AxiosResponse<any> = await userService.register(user);
             if (res.status === 201) {
                 await storage.save('token', res.data);
@@ -69,17 +77,17 @@ export default class RegisterScreen extends Component<MyProps, MyState> implemen
             !user.name ||
             !user.password ||
             !confirmPassword) {
-            this.showToast('Preencha todos os campos', 'Ok', 'warning');
+            this.showToast('Preencha todos os campos', 'Ok', 'danger');
             return false;
         }
 
         if (user.age < 18) {
-            this.showToast('O usuário deve ser maior de idade', 'Ok', 'warning');
+            this.showToast('O usuário deve ser maior de idade', 'Ok', 'danger');
             return false;
         }
 
         if (user.password !== confirmPassword) {
-            this.showToast('As senhas não coincidem', 'Ok', 'warning',);
+            this.showToast('As senhas não coincidem', 'Ok', 'danger');
             return false;
         }
 
@@ -92,8 +100,7 @@ export default class RegisterScreen extends Component<MyProps, MyState> implemen
             buttonText: buttonText,
             type: type,
             duration: 9999,
-            position: 'top',
-            style: { marginHorizontal: '5%' }
+            position: 'bottom',
         })
     }
 

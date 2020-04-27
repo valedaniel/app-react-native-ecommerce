@@ -4,4 +4,5 @@ export interface Contract {
     setLogin(value: string): void;
     setPassword(value: string): void;
     redirectToRegister(): void;
+    getLoading(): boolean;
 }

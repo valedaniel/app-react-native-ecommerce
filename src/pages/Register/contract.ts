@@ -7,4 +7,5 @@ export interface Contract {
     setName(value: string): void;
     setPassword(value: string): void;
     setConfirmPassword(value: string): void;
+    getLoading(): boolean;
 }

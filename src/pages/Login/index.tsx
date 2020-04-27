@@ -10,14 +10,14 @@ import SplashScreen from 'react-native-splash-screen'
 import { Root, Toast } from 'native-base';
 
 type MyProps = {}
-export type MyState = { user: User }
+export type MyState = { user: User, loading: boolean }
 
 export default class LoginScreen extends Component<MyProps, MyState> implements Contract {
     constructor(props: any) {
         super(props);
-
         this.state = {
-            user: new User()
+            user: new User(),
+            loading: false,
         }
 
     }
@@ -39,22 +39,33 @@ export default class LoginScreen extends Component<MyProps, MyState> implements 
         user.password = value;
     }
 
+    getLoading(): boolean {
+        const { loading } = this.state;
+        return loading;
+    }
+
     redirectToRegister(): void { Actions.register(); }
 
     async authenticate(): Promise<void> {
         const { user } = this.state;
         if (this.validateUser(user)) {
-            const res: AxiosResponse<any> = await userService.authenticate(user);
-            if (res.status == 200) {
-                await storage.save('token', res.data);
-                Actions.productList();
+            this.setState({ loading: true });
+            try {
+                const res: AxiosResponse<any> = await userService.authenticate(user);
+                if (res.status === 200) {
+                    await storage.save('token', res.data);
+                    Actions.productList();
+                }
+            } catch (err) {
+                this.setState({ loading: false });
+                this.showToast('O email ou a senha estão incorretos', 'Ok', 'danger');
             }
         }
     }
 
     private validateUser(user: User): boolean {
         if (!user.email || !user.password) {
-            this.showToast('Preencha todos os campos', 'Ok', 'warning');
+            this.showToast('Preencha todos os campos', 'Ok', 'danger');
             return false;
         }
         return true;

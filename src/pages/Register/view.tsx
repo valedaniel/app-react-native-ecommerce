@@ -4,11 +4,13 @@ import { Contract } from './contract';
 import styles from './styles';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { StatusBar, ActivityIndicator } from 'react-native';
 
 export class RegisterHeader extends Component<any, any> {
     render(): ReactNode {
         return (
             <>
+                <StatusBar translucent backgroundColor="transparent" />
             </>
         );
     }
@@ -22,6 +24,7 @@ export class RegisterBody extends Component<{ contract: Contract }, any> {
         return (
             <Container style={styles.container}>
                 <Content>
+                    {contract.getLoading() ? <ActivityIndicator style={styles.activity} size="large" color="white" /> : null}
                     <Item style={styles.item} rounded inlineLabel>
                         <Icon style={styles.icon} name='address-card' />
                         <Input

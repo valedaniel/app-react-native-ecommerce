@@ -3,14 +3,14 @@ import { Content, Button, Text, Item, Input } from 'native-base';
 import { Contract } from './contract';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ImageBackground, View } from 'react-native';
+import { ImageBackground, View, StatusBar, ActivityIndicator } from 'react-native';
 import background from '../../assets/background.png';
 
 export class LoginHeader extends Component<any, any> {
     render(): ReactNode {
         return (
             <>
-
+                <StatusBar translucent backgroundColor="transparent" />
             </>
         );
     }
@@ -22,6 +22,7 @@ export class LoginBody extends Component<{ contract: Contract }, any> {
         return (
             <View style={styles.view}>
                 <ImageBackground source={background} style={styles.image}>
+                    {contract.getLoading() ? <ActivityIndicator style={styles.activity} size="large" color="white" /> : null}
                     <Content style={styles.content}>
                         <Item style={styles.item} rounded inlineLabel >
                             <Icon style={styles.icon} name='user' />
