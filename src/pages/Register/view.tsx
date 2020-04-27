@@ -10,7 +10,7 @@ export class RegisterHeader extends Component<any, any> {
     render(): ReactNode {
         return (
             <>
-                <StatusBar translucent backgroundColor="transparent" />
+                <StatusBar backgroundColor='#0070C0' animated={true} />
             </>
         );
     }

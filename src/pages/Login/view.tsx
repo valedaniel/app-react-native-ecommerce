@@ -4,13 +4,14 @@ import { Contract } from './contract';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ImageBackground, View, StatusBar, ActivityIndicator } from 'react-native';
-import background from '../../assets/background.png';
+
+const background = require('../../assets/background.png');
 
 export class LoginHeader extends Component<any, any> {
     render(): ReactNode {
         return (
             <>
-                <StatusBar translucent backgroundColor="transparent" />
+                <StatusBar backgroundColor='#0070C0' animated={true} />
             </>
         );
     }

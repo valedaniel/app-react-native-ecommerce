@@ -1,6 +1,5 @@
 import React, { Component, ReactNode } from 'react';
 import { Contract } from './contract';
-import userService from '../../services/userService';
 import { ProductListBody, ProductListHeader } from './view';
 import storage from '../../services/storage';
 import { User } from '../../entities/user';
@@ -8,19 +7,25 @@ import { Actions } from 'react-native-router-flux';
 import { AxiosResponse } from 'axios';
 import productService from '../../services/productService';
 import SplashScreen from 'react-native-splash-screen';
+import { Product } from "../../entities/product";
 
 type MyProps = {}
-export type MyState = { user: User, confirmPassword: string }
+export type MyState = { product: Product[], confirmPassword: string }
 
 export default class ProductList extends Component<MyProps, MyState> implements Contract {
     constructor(props: any) {
         super(props);
 
         this.state = {
-            user: new User(),
+            product: [],
             confirmPassword: '',
         }
 
+    }
+
+    getProducts(): Product[] {
+        const { product } = this.state;
+        return product;
     }
 
     async logout(): Promise<void> {
@@ -31,13 +36,13 @@ export default class ProductList extends Component<MyProps, MyState> implements 
     async componentDidMount() {
         const res: AxiosResponse<any> = await productService.list();
         SplashScreen.hide();
-        console.log(res.data);
+        this.setState({ product: res.data });
     }
 
     render(): ReactNode {
         return (
             <>
-                <ProductListHeader />
+                <ProductListHeader contract={this} />
                 <ProductListBody contract={this} />
             </>
         );

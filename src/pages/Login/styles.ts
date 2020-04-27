@@ -13,7 +13,7 @@ export default StyleSheet.create({
     },
     content: {
         marginHorizontal: '5%',
-        marginTop: '10%',
+        marginTop: '5%',
     },
     item: {
         marginVertical: '3%'
@@ -40,6 +40,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         top: 0,
-        bottom: 0
+        bottom: 0,
+        zIndex:9999
     }
 });
