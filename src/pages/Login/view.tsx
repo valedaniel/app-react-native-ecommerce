@@ -44,7 +44,7 @@ export class LoginBody extends Component<{ contract: Contract }, any> {
                                 style={styles.input}
                             />
                         </Item>
-                        <Button block success style={{ ...styles.button, marginTop: '15%' }} onPress={() => contract.authenticate()}>
+                        <Button block success style={{ ...styles.button, marginTop: '10%' }} onPress={() => contract.authenticate()}>
                             <Text style={styles.text}>Entrar</Text>
                         </Button>
                         <Button bordered light block style={styles.button} onPress={() => contract.redirectToRegister()}>
