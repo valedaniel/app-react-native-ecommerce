@@ -24,9 +24,11 @@ export default StyleSheet.create({
         color: 'white'
     },
     image: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center"
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     },
     view: {
         flex: 1,
