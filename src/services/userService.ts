@@ -9,7 +9,6 @@ class UserService {
     }
 
     public async register(user: User): Promise<AxiosResponse<any>> {
-        console.log(user);
         return await API.post('/user/customer/add', {
             address: user.address,
             age: user.age,

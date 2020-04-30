@@ -9,8 +9,14 @@ class ProductService {
         return await API.get('/product/list');
     }
 
-    public async add(data: Product): Promise<AxiosResponse<any>> {
-        return await API.post('/product/add', { token: await storage.get('token'), product: { ...data } });
+    public async add(product: Product): Promise<AxiosResponse<any>> {
+        return await API.post('/product/add', {
+            token: await storage.get('token'),
+            amount: product.amount,
+            factory: { name: product.factory.name },
+            name: product.name,
+            price: product.price
+        });
     }
 
 }
