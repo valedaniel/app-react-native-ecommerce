@@ -21,12 +21,6 @@ class App extends React.Component<any, any> {
       <>
         <Router>
           <Stack key="root">
-            {/* <Drawer
-              key='userProfile'
-              drawerPosition='left'
-              type="push"
-              hideNavBar
-            > */}
             <Scene
               key="login"
               component={LoginScreen}
@@ -48,7 +42,6 @@ class App extends React.Component<any, any> {
               hideNavBar={true}
               type="replace"
             />
-            {/* </Drawer> */}
           </Stack>
         </Router >
       </>
