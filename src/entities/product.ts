@@ -6,4 +6,5 @@ export class Product {
     name!: string;
     price!: number;
     factory!: Factory;
+    willDelete!: boolean;
 }

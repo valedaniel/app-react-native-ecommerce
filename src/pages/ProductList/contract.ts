@@ -12,6 +12,9 @@ export interface Contract {
     isDelete(): boolean
     changeDelete(): void
 
+    deleteAllSelected(): Promise<void>
+    changeWillDelete(productId: number): void
+
     setName(text: string): void
     setFactory(text: string): void
     setAmount(number: number): void

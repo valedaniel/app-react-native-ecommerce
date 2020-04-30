@@ -34,15 +34,21 @@ export default class ProductList extends Component<MyProps, MyState> implements 
     }
 
     async componentDidMount() {
-        const res: AxiosResponse<any> = await productService.list();
+        await this.refreshProducts();
         SplashScreen.hide();
+    }
+
+    async refreshProducts() {
+        const res: AxiosResponse<any> = await productService.list();
+        res.data.forEach((product: Product) => {
+            product.willDelete = false;
+        });
         this.setState({ products: res.data });
     }
 
     async sendNewProduct(): Promise<void> {
         const { product } = this.state;
         const res: AxiosResponse<any> = await productService.add(product);
-        console.log(res.status);
     }
 
     async logout(): Promise<void> {
@@ -61,6 +67,26 @@ export default class ProductList extends Component<MyProps, MyState> implements 
         this.setState({ isDelete: !isDelete });
     }
 
+    changeWillDelete(productId: number): void {
+        const { products } = this.state;
+        products.forEach((product: Product) => {
+            if (product.id === productId) {
+                product.willDelete = !product.willDelete;
+            }
+        })
+        this.setState({ products });
+    }
+
+    async deleteAllSelected(): Promise<void> {
+        const { products } = this.state;
+        products.forEach(async (product: Product) => {
+            if (product.willDelete) {
+                await productService.delete(product.id);
+            }
+        })
+        this.setState({ fabActive: false, isDelete: false });
+        await this.refreshProducts();
+    }
 
     getProducts(): Product[] {
         const { products } = this.state;

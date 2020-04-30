@@ -47,10 +47,11 @@ export class ProductListHeader extends Component<{ contract: Contract }, any> {
 export class ProductListBody extends Component<{ contract: Contract }, any> {
     render(): ReactNode {
         const { contract } = this.props;
+
         return (
             <Container>
                 <Content>
-                    <List dataArray={contract.getProducts()}
+                    <List style={styles.list} dataArray={contract.getProducts()}
                         renderRow={(product: Product) =>
                             <ListItem key={product.id}>
                                 <Right />
@@ -61,13 +62,17 @@ export class ProductListBody extends Component<{ contract: Contract }, any> {
                                 </Body>
                                 <Right>
                                     {contract.isDelete() ?
-                                        <CheckBox style={styles.checkbox} color="#B22222" checked={false} /> : null}
+                                        <CheckBox
+                                            style={styles.checkbox}
+                                            color="#B22222"
+                                            onPress={() => contract.changeWillDelete(product.id)}
+                                            checked={product.willDelete} /> : null}
                                 </Right>
                             </ListItem>
                         }>
                     </List>
                     {contract.isDelete() ?
-                        <Button style={styles.button} block>
+                        <Button onPress={() => contract.deleteAllSelected()} style={styles.button} block>
                             <Text style={styles.textButton}>DELETAR</Text>
                         </Button> : null}
                     <ModalProduct
@@ -88,10 +93,16 @@ export class ProductListBody extends Component<{ contract: Contract }, any> {
                     position="bottomRight"
                     onPress={() => contract.setFabActive(!contract.getFabActive())}>
                     <Icon name="cog" />
-                    <Button onPress={() => contract.openModal()} style={{ backgroundColor: '#5CB85C' }}>
+                    <Button onPress={() => {
+                        contract.openModal()
+                        contract.setFabActive(!contract.getFabActive());
+                    }} style={{ backgroundColor: '#5CB85C' }}>
                         <Icon style={styles.icon} name="plus" />
                     </Button>
-                    <Button onPress={() => contract.changeDelete()} style={{ backgroundColor: '#B22222' }}>
+                    <Button onPress={() => {
+                        contract.changeDelete();
+                        contract.setFabActive(!contract.getFabActive());
+                    }} style={{ backgroundColor: '#B22222' }}>
                         <Icon style={styles.icon} name="trash" />
                     </Button>
                 </Fab>
